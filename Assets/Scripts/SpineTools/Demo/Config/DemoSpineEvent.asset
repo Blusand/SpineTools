@@ -48,7 +48,11 @@ MonoBehaviour:
   - AnimationName: jump
     TrackIndex: 0
     TimeScale: 1
-    Events: []
+    Events:
+    - EventName: Jump
+      TriggerProgress: 0.3
+      TriggerMode: 0
+      EventParam: 
   - AnimationName: run
     TrackIndex: 0
     TimeScale: 1
@@ -60,7 +64,11 @@ MonoBehaviour:
   - AnimationName: shield_attack
     TrackIndex: 0
     TimeScale: 1
-    Events: []
+    Events:
+    - EventName: Attack
+      TriggerProgress: 0.3
+      TriggerMode: 0
+      EventParam: 
   - AnimationName: stun
     TrackIndex: 0
     TimeScale: 1
