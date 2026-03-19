@@ -18,6 +18,8 @@ MonoBehaviour:
     Loop: 0
     TimeScale: 1
     Events: []
+    animationHash: -81379679
+    animationHashDebug: -81379679
   - AnimationName: buff_2
     TrackIndex: 0
     Loop: 0
@@ -27,36 +29,52 @@ MonoBehaviour:
       TriggerProgress: 0.4
       TriggerMode: 0
       EventParam: Get Buff2
+      eventHash: -2120933908
+      eventHashDebug: -2120933908
+    animationHash: 1647275803
+    animationHashDebug: 1647275803
   - AnimationName: buff_3
     TrackIndex: 0
     Loop: 0
     TimeScale: 1
     Events: []
+    animationHash: 354967437
+    animationHashDebug: 354967437
   - AnimationName: dead
     TrackIndex: 0
     Loop: 0
     TimeScale: 1
     Events: []
+    animationHash: -316323548
+    animationHashDebug: -316323548
   - AnimationName: hit
     TrackIndex: 0
     Loop: 0
     TimeScale: 1
     Events: []
+    animationHash: 1523721793
+    animationHashDebug: 1523721793
   - AnimationName: idle_1
     TrackIndex: 0
     Loop: 1
     TimeScale: 1
     Events: []
+    animationHash: -1583731091
+    animationHashDebug: -1583731091
   - AnimationName: idle_2
     TrackIndex: 0
     Loop: 1
     TimeScale: 1
     Events: []
+    animationHash: 949190615
+    animationHashDebug: 949190615
   - AnimationName: idle_3
     TrackIndex: 0
     Loop: 1
     TimeScale: 1
     Events: []
+    animationHash: 1335119681
+    animationHashDebug: 1335119681
   - AnimationName: jump
     TrackIndex: 0
     Loop: 0
@@ -66,16 +84,24 @@ MonoBehaviour:
       TriggerProgress: 0.3
       TriggerMode: 0
       EventParam: 
+      eventHash: -1238266198
+      eventHashDebug: -1238266198
+    animationHash: -1481439722
+    animationHashDebug: -1481439722
   - AnimationName: run
     TrackIndex: 0
     Loop: 0
     TimeScale: 1
     Events: []
+    animationHash: 1349952704
+    animationHashDebug: 1349952704
   - AnimationName: run_shield
     TrackIndex: 0
     Loop: 0
     TimeScale: 1
     Events: []
+    animationHash: 347071445
+    animationHashDebug: 347071445
   - AnimationName: shield_attack
     TrackIndex: 0
     Loop: 0
@@ -85,23 +111,35 @@ MonoBehaviour:
       TriggerProgress: 0.3
       TriggerMode: 0
       EventParam: 
+      eventHash: -100301234
+      eventHashDebug: -100301234
+    animationHash: -148184448
+    animationHashDebug: -148184448
   - AnimationName: stun
     TrackIndex: 0
     Loop: 0
     TimeScale: 1
     Events: []
+    animationHash: -210448114
+    animationHashDebug: -210448114
   - AnimationName: sword_attack
     TrackIndex: 0
     Loop: 0
     TimeScale: 1
     Events: []
+    animationHash: 1990188338
+    animationHashDebug: 1990188338
   - AnimationName: walk
     TrackIndex: 0
     Loop: 0
     TimeScale: 1
     Events: []
+    animationHash: -1919845803
+    animationHashDebug: -1919845803
   - AnimationName: walk_shield
     TrackIndex: 0
     Loop: 0
     TimeScale: 1
     Events: []
+    animationHash: -811483750
+    animationHashDebug: -811483750
