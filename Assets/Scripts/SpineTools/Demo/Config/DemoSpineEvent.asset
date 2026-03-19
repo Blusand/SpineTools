@@ -15,38 +15,51 @@ MonoBehaviour:
   AnimationEventList:
   - AnimationName: buff_1
     TrackIndex: 0
+    Loop: 0
     TimeScale: 1
     Events: []
   - AnimationName: buff_2
     TrackIndex: 0
+    Loop: 0
     TimeScale: 1
-    Events: []
+    Events:
+    - EventName: GetBuff
+      TriggerProgress: 0.4
+      TriggerMode: 0
+      EventParam: Get Buff2
   - AnimationName: buff_3
     TrackIndex: 0
+    Loop: 0
     TimeScale: 1
     Events: []
   - AnimationName: dead
     TrackIndex: 0
+    Loop: 0
     TimeScale: 1
     Events: []
   - AnimationName: hit
     TrackIndex: 0
+    Loop: 0
     TimeScale: 1
     Events: []
   - AnimationName: idle_1
     TrackIndex: 0
+    Loop: 1
     TimeScale: 1
     Events: []
   - AnimationName: idle_2
     TrackIndex: 0
+    Loop: 1
     TimeScale: 1
     Events: []
   - AnimationName: idle_3
     TrackIndex: 0
+    Loop: 1
     TimeScale: 1
     Events: []
   - AnimationName: jump
     TrackIndex: 0
+    Loop: 0
     TimeScale: 1
     Events:
     - EventName: Jump
@@ -55,14 +68,17 @@ MonoBehaviour:
       EventParam: 
   - AnimationName: run
     TrackIndex: 0
+    Loop: 0
     TimeScale: 1
     Events: []
   - AnimationName: run_shield
     TrackIndex: 0
+    Loop: 0
     TimeScale: 1
     Events: []
   - AnimationName: shield_attack
     TrackIndex: 0
+    Loop: 0
     TimeScale: 1
     Events:
     - EventName: Attack
@@ -71,17 +87,21 @@ MonoBehaviour:
       EventParam: 
   - AnimationName: stun
     TrackIndex: 0
+    Loop: 0
     TimeScale: 1
     Events: []
   - AnimationName: sword_attack
     TrackIndex: 0
+    Loop: 0
     TimeScale: 1
     Events: []
   - AnimationName: walk
     TrackIndex: 0
+    Loop: 0
     TimeScale: 1
     Events: []
   - AnimationName: walk_shield
     TrackIndex: 0
+    Loop: 0
     TimeScale: 1
     Events: []

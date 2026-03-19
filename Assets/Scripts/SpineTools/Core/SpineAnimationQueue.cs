@@ -14,8 +14,10 @@ namespace SpineTools.Core
         /// </summary>
         private class AnimationQueueItem
         {
+            /// <summary>
+            /// 动画名
+            /// </summary>
             public int AnimationName;
-            public bool Loop;
 
             /// <summary>
             /// 动画结束回调
@@ -42,25 +44,22 @@ namespace SpineTools.Core
         /// 将动画加入队列（不立即播放，需调用PlayQueue）
         /// </summary>
         /// <param name="animationName">动画名</param>
-        /// <param name="loop"></param>
         /// <param name="onComplete"></param>
-        public void EnqueueAnimation(string animationName, bool loop = false, Action onComplete = null)
+        public void EnqueueAnimation(string animationName, Action onComplete = null)
         {
-            EnqueueAnimation(Animator.StringToHash(animationName), loop, onComplete);
+            EnqueueAnimation(Animator.StringToHash(animationName), onComplete);
         }
 
         /// <summary>
         /// 将动画加入队列（不立即播放，需调用PlayQueue）
         /// </summary>
         /// <param name="animationHash">动画名哈希值</param>
-        /// <param name="loop"></param>
         /// <param name="onComplete"></param>
-        public void EnqueueAnimation(int animationHash, bool loop = false, Action onComplete = null)
+        public void EnqueueAnimation(int animationHash, Action onComplete = null)
         {
             _animations.Enqueue(new AnimationQueueItem
             {
                 AnimationName = animationHash,
-                Loop = loop,
                 OnComplete = onComplete
             });
         }
@@ -101,7 +100,9 @@ namespace SpineTools.Core
             _loopQueue = false;
         }
 
-        // 播放队列中的下一个动画
+        /// <summary>
+        /// 播放队列中的下一个动画
+        /// </summary>
         private void PlayNextInQueue()
         {
             if (!_isPlayingQueue || _animations.Count == 0)
@@ -120,10 +121,7 @@ namespace SpineTools.Core
             }
 
             // 播放动画
-            SetAnimation(
-                animationHash: item.AnimationName,
-                loop: item.Loop,
-                onComplete: () =>
+            SetAnimation(animationHash: item.AnimationName, onComplete: () =>
                 {
                     // 先执行该动画单独的回调
                     item.OnComplete?.Invoke();

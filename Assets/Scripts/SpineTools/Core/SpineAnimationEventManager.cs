@@ -20,6 +20,16 @@ namespace SpineTools.Core
         public event Action<string, int, string> OnSpineEvent;
 
         /// <summary>
+        /// 动画开始事件
+        /// </summary>
+        public event Action<TrackEntry> AnimationStart;
+
+        /// <summary>
+        /// 动画结束事件
+        /// </summary>
+        public event Action<TrackEntry> AnimationComplete;
+
+        /// <summary>
         /// 当前动画事件
         /// </summary>
         private SpineAnimationEventList _currentEventList;
@@ -109,16 +119,19 @@ namespace SpineTools.Core
                 return;
             }
 
-            // 重置状态
-            _lastAnimationHash = animationHash;
             _currentEventList = _spineEventConfig.GetEventList(animationHash);
-            trackEntry.TimeScale = _currentEventList.TimeScale;
             if (_currentEventList != null)
             {
+                // 重置状态
+                _lastAnimationHash = animationHash;
+                trackEntry.TimeScale = _currentEventList.TimeScale;
+
                 // 重置索引
                 _currentEventList.currentEventIndex = 0;
                 _currentEventList.hasCompletedOnce = false;
             }
+
+            AnimationStart?.Invoke(trackEntry);
         }
 
         private void OnAnimationComplete(TrackEntry trackEntry)
@@ -144,39 +157,57 @@ namespace SpineTools.Core
 
                 ++_currentEventList.currentEventIndex;
             }
-        }
 
+            AnimationComplete?.Invoke(trackEntry);
+        }
 
         /// <summary>
         /// 播放Spine动画
         /// </summary>
         /// <param name="animationName">动画名称</param>
-        /// <param name="loop">是否循环</param>
         /// <param name="onComplete">动画结束回调（仅非循环动画有效）</param>
-        public void SetAnimation(string animationName, bool loop = false, Action onComplete = null)
+        public void SetAnimation(string animationName, Action onComplete = null)
         {
-            SetAnimation(Animator.StringToHash(animationName), loop, onComplete);
+            SetAnimation(Animator.StringToHash(animationName), onComplete);
         }
 
         /// <summary>
         /// 播放Spine动画
         /// </summary>
         /// <param name="animationHash">动画名称哈希值</param>
-        /// <param name="loop">是否循环</param>
         /// <param name="onComplete">动画结束回调（仅非循环动画有效）</param>
-        public void SetAnimation(int animationHash, bool loop = false, Action onComplete = null)
+        public void SetAnimation(int animationHash, Action onComplete = null)
         {
             _currentEventList = _spineEventConfig.GetEventList(animationHash);
 
+            if (_currentEventList == null)
+            {
+                Debug.LogWarning($"未找到动画哈希 {animationHash} 的配置", this);
+                return;
+            }
+
+            SetAnimation(_currentEventList.TrackIndex, _currentEventList.AnimationName, _currentEventList.Loop,
+                _currentEventList.TimeScale, onComplete);
+        }
+
+        /// <summary>
+        /// 播放Spine动画
+        /// </summary>
+        /// <param name="trackIndex">动画播放轨道</param>
+        /// <param name="animationName">动画名</param>
+        /// <param name="loop">是否循环播放</param>
+        /// <param name="timeScale">播放速度</param>
+        /// <param name="onComplete">动画结束回调（仅非循环动画有效）</param>
+        public void SetAnimation(int trackIndex, string animationName, bool loop = false, float timeScale = 1f,
+            Action onComplete = null)
+        {
             // 1.播放动画（可根据需求修改轨道索引）
-            TrackEntry trackEntry =
-                SkeletonAnimation.AnimationState.SetAnimation(_currentEventList.TrackIndex,
-                    _currentEventList.AnimationName, loop);
+            TrackEntry trackEntry = SkeletonAnimation.AnimationState.SetAnimation(trackIndex, animationName, loop);
 
             // 2.设置播放速度
-            trackEntry.TimeScale = _currentEventList.TimeScale;
+            trackEntry.TimeScale = timeScale;
 
-            // 3.如果有结束回调且不是循环动画，监听 Complete 事件
+            // 3.如果有结束回调且不是循环动画，监听Complete事件
             if (onComplete != null && !loop)
             {
                 // 定义本地回调函数（用于自动取消订阅）
@@ -206,11 +237,27 @@ namespace SpineTools.Core
         }
 
         /// <summary>
+        /// 暂停动画（不依赖配置）
+        /// </summary>
+        public void PauseAnimation(int trackIndex)
+        {
+            SetAnimationTimeScale(trackIndex, 0f);
+        }
+
+        /// <summary>
         /// 继续播放动画
         /// </summary>
         public void ResumeAnimation()
         {
             SetAnimationTimeScale(1f);
+        }
+
+        /// <summary>
+        /// 继续播放动画（不依赖配置）
+        /// </summary>
+        public void ResumeAnimation(int trackIndex)
+        {
+            SetAnimationTimeScale(trackIndex, 1f);
         }
 
         /// <summary>
@@ -228,6 +275,21 @@ namespace SpineTools.Core
         }
 
         /// <summary>
+        /// 停止动画（不依赖配置）
+        /// </summary>
+        /// <param name="trackIndex"></param>
+        /// <param name="fadeOutDuration"></param>
+        public void StopAnimation(int trackIndex, float fadeOutDuration = 0f)
+        {
+            if (_currentEventList == null)
+            {
+                return;
+            }
+
+            SkeletonAnimation.AnimationState.SetEmptyAnimation(trackIndex, fadeOutDuration);
+        }
+
+        /// <summary>
         /// 设置动画TimeScale
         /// </summary>
         /// <param name="timeScale"></param>
@@ -239,6 +301,20 @@ namespace SpineTools.Core
             }
 
             var trackEntry = SkeletonAnimation.AnimationState.GetCurrent(_currentEventList.TrackIndex);
+            if (trackEntry != null)
+            {
+                trackEntry.TimeScale = timeScale;
+            }
+        }
+
+        /// <summary>
+        /// 设置动画TimeScale（不依赖配置）
+        /// </summary>
+        /// <param name="trackIndex"></param>
+        /// <param name="timeScale"></param>
+        public void SetAnimationTimeScale(int trackIndex, float timeScale)
+        {
+            var trackEntry = SkeletonAnimation.AnimationState.GetCurrent(trackIndex);
             if (trackEntry != null)
             {
                 trackEntry.TimeScale = timeScale;

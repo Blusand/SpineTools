@@ -51,6 +51,8 @@ namespace SpineTools.Core
 
         [Tooltip("监听的动画轨道（0为主轨道）")] public int TrackIndex = 0;
 
+        [Tooltip("是否循环播放")] public bool Loop = false;
+
         [Tooltip("动画播放速度")] public float TimeScale = 1;
 
         [Tooltip("该动画对应的事件列表")] public List<SpineAnimationEvent> Events = new List<SpineAnimationEvent>();

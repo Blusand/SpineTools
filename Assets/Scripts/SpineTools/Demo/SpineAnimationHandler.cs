@@ -22,18 +22,19 @@ namespace SpineTools.Demo
             {
                 _eventManager.EnqueueAnimation(SpineAnimationNames.run_shield);
                 _eventManager.EnqueueAnimation(SpineAnimationNames.shield_attack);
-                _eventManager.EnqueueAnimation(SpineAnimationNames.idle_3, true);
+                _eventManager.EnqueueAnimation(SpineAnimationNames.idle_3);
                 _eventManager.PlayQueue();
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 _eventManager.EnqueueAnimation(SpineAnimationNames.run_shield);
                 _eventManager.EnqueueAnimation(SpineAnimationNames.jump);
-                _eventManager.EnqueueAnimation(SpineAnimationNames.idle_3, true);
+                _eventManager.EnqueueAnimation(SpineAnimationNames.idle_3);
                 _eventManager.PlayQueue();
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
+                _eventManager.SetAnimation(0, "buff_2", false, 1);
             }
         }
 
@@ -50,8 +51,9 @@ namespace SpineTools.Demo
             // 在这里面订阅动画事件
             _animationHandlers = new Dictionary<int, System.Action<int, string>>
             {
-                { SpineEventHashes.shield_attack_Attack, RunShield },
-                { SpineEventHashes.jump_Jump, Jump },
+                { SpineEventHashes.shield_attack_Attack, OnRunShield },
+                { SpineEventHashes.jump_Jump, OnJump },
+                { SpineEventHashes.buff_2_GetBuff, OnBuff2 },
             };
         }
 
@@ -71,14 +73,20 @@ namespace SpineTools.Demo
 
         #region CustomEvent
 
-        private void RunShield(int eventNameHash, string eventParam)
+        private void OnRunShield(int eventNameHash, string eventParam)
         {
-            Debug.Log("RunShield Attack");
+            Debug.Log("OnRunShield Attack");
         }
 
-        private void Jump(int eventNameHash, string eventParam)
+        private void OnJump(int eventNameHash, string eventParam)
         {
-            Debug.Log("Jump");
+            Debug.Log("OnJump");
+        }
+
+        private void OnBuff2(int eventNameHash, string eventParam)
+        {
+            Debug.Log(eventParam);
+            _eventManager.SetAnimation(SpineAnimationNames.idle_3);
         }
 
         #endregion

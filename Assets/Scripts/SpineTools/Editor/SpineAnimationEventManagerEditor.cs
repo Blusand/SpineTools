@@ -114,6 +114,7 @@ namespace SpineTools.Editor
 
                     // 初始化新的SpineAnimationEventSet
                     newSetProp.FindPropertyRelative("TrackIndex").intValue = 0;
+                    newSetProp.FindPropertyRelative("Loop").boolValue = false;
                     newSetProp.FindPropertyRelative("TimeScale").floatValue = 1f;
                     newSetProp.FindPropertyRelative("AnimationName").stringValue = anim.Name;
                     newSetProp.FindPropertyRelative("Events").ClearArray();
