@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using SpineTools.Core;
-using UnityEngine;
-
 namespace SpineTools.Demo
 {
+    using System.Collections.Generic;
+    using SpineTools.Core;
+    using UnityEngine;
+
     public class SpineAnimationHandler : MonoBehaviour
     {
         [SerializeField] private SpineAnimationEventManager _eventManager;

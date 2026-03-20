@@ -1,8 +1,7 @@
-using SpineTools.Core;
-
 #if UNITY_EDITOR
 namespace SpineTools.Editor
 {
+    using SpineTools.Core;
     using UnityEngine;
     using UnityEditor;
     using System.IO;
@@ -225,7 +224,8 @@ namespace SpineTools.Editor
             {
                 string safeVarName = SanitizeVariableName(animName);
                 // 运行时动态计算（只计算一次）
-                sb.AppendLine($"{GetTab()}\tpublic static readonly int {safeVarName} = Animator.StringToHash(\"{animName}\");");
+                sb.AppendLine(
+                    $"{GetTab()}\tpublic static readonly int {safeVarName} = Animator.StringToHash(\"{animName}\");");
                 // 编译时存储哈希值
                 //sb.AppendLine($"{GetTab()}\tpublic const string {safeVarName} = \"{animName}\";");
             }

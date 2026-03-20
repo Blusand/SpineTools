@@ -1,8 +1,7 @@
-using SpineTools.Core;
-
 #if UNITY_EDITOR
 namespace SpineTools.Editor
 {
+    using SpineTools.Core;
     using UnityEngine;
     using UnityEditor;
     using Spine;
