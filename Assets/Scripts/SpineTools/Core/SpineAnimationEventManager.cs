@@ -15,9 +15,9 @@ namespace SpineTools.Core
         private bool _playSameAnimation = true;
 
         /// <summary>
-        /// 触发事件（动画名，件名哈希值，事件参数）
+        /// 触发事件（动画名哈希值，事件名哈希值，事件参数）
         /// </summary>
-        public event Action<string, int, string> OnSpineEvent;
+        public event Action<int, int, string> OnSpineEvent;
 
         /// <summary>
         /// 动画开始事件
@@ -92,7 +92,7 @@ namespace SpineTools.Core
                 // 触发事件
                 if (needTrigger)
                 {
-                    OnSpineEvent?.Invoke(_currentEventList.AnimationName, currentEvent.eventHash,
+                    OnSpineEvent?.Invoke(_currentEventList.animationHash, currentEvent.eventHash,
                         currentEvent.EventParam);
                 }
 

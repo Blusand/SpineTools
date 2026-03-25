@@ -63,7 +63,7 @@ namespace SpineTools.Demo
         /// <param name="animationName">动画名哈希值</param>
         /// <param name="eventNameHash">事件名哈希值</param>
         /// <param name="eventParam">事件参数</param>
-        private void OnSpineEvent(string animationName, int eventNameHash, string eventParam)
+        private void OnSpineEvent(int animationName, int eventNameHash, string eventParam)
         {
             if (_animationHandlers.TryGetValue(eventNameHash, out var animationHandler))
             {
